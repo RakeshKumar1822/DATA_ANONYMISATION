@@ -1,0 +1,628 @@
+@import "tailwindcss";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+:root {
+  font: 10.5px/125% system-ui, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: 0.15px;
+  color-scheme: light dark;
+}
+
+html, body, #root {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+  background-color: #E3EBFA;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  top: 0 !important;
+  left: 0 !important;
+  position: fixed !important;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================
+   CUSTOM HOME BUTTON CSS STYLING
+   ================================================---------- */
+button.home-custom-btn {
+  --color: #560bad;
+  font-family: inherit;
+  display: inline-block;
+  width: 8em;
+  height: 2.6em;
+  line-height: 2.5em;
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border: 2px solid var(--color);
+  transition: color 0.5s;
+  z-index: 1;
+  font-size: 13px;
+  border-radius: 6px;
+  font-weight: 500;
+  color: var(--color);
+  background: transparent;
+}
+
+button.home-custom-btn:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: var(--color);
+  height: 150px;
+  width: 200px;
+  border-radius: 50%;
+  top: 100%;
+  left: 100%;
+  transition: all 0.7s;
+}
+
+button.home-custom-btn:hover {
+  color: #fff;
+}
+
+button.home-custom-btn:hover:before {
+  top: -30px;
+  left: -30px;
+}
+
+button.home-custom-btn:active:before {
+  background: #3a0ca3;
+  transition: background 0s;
+}
+
+/* ==========================================================
+   DATA INGESTION CARD CSS STYLING (Zero overlap, perfect background)
+   ================================================---------- */
+.card {
+  max-width: 300px;
+  width: 100%;
+  border-radius: 1rem;
+  background-color: rgba(31, 41, 55, 1);
+  padding: 1.25rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+}
+
+.infos {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.image {
+  height: 4.5rem;
+  width: 4.5rem;
+  border-radius: 0.5rem;
+  background-color: rgb(118, 36, 194);
+  background: linear-gradient(to bottom right, rgb(118, 36, 194), rgb(185, 128, 240));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.name {
+  font-size: 1.1rem;
+  line-height: 1.4rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+}
+
+.function {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgba(156, 163, 175, 1);
+  margin-top: 2px;
+}
+
+.request {
+  margin-top: 1.25rem;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  transition: all .3s ease;
+  background-color: rgb(118, 36, 194);
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.request:hover {
+  background-color: rgb(138, 56, 214);
+}
+
+.card input[type="text"], .card input[type="password"], .card input[type="number"] {
+  width: 100%;
+  background: rgba(17, 24, 39, 0.9);
+  border: 1px solid rgba(75, 85, 99, 1);
+  border-radius: 0.4rem;
+  padding: 5px 8px;
+  color: #fff;
+  font-size: 11px;
+  margin-top: 5px;
+  outline: none;
+}
+
+.card input::placeholder {
+  color: rgba(156, 163, 175, 1);
+}
+
+/* ==========================================================
+   3D RUN BUTTON CSS STYLING
+   ================================================---------- */
+.button-3d {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  border-width: 0;
+  padding: 0 4px 8px;
+  min-width: 7em;
+  box-sizing: border-box;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.button-3d-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 0;
+  padding: 5px 12px;
+  transform: translateY(0);
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  text-shadow: 0 -1px rgba(0, 0, 0, .25);
+  transition-property: transform;
+  transition-duration: .2s;
+  user-select: none;
+}
+
+.button-3d:active .button-3d-top {
+  transform: translateY(4px);
+}
+
+.button-3d-top::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  box-sizing: content-box;
+  background-image: radial-gradient(#cd3f64, #9d3656);
+  text-align: center;
+  color: #fff;
+  box-shadow: inset 0 0 0px 1px rgba(255, 255, 255, .2), 0 1px 2px 1px rgba(255, 255, 255, .2);
+  transition-property: border-radius, padding, width, transform;
+  transition-duration: .2s;
+}
+
+.button-3d:active .button-3d-top::after {
+  border-radius: 6px;
+  padding: 0 2px;
+}
+
+.button-3d-bottom {
+  position: absolute;
+  z-index: -1;
+  bottom: 2px;
+  left: 2px;
+  border-radius: 8px / 16px 16px 8px 8px;
+  padding-top: 4px;
+  width: calc(100% - 4px);
+  height: calc(100% - 6px);
+  box-sizing: content-box;
+  background-color: #803;
+  background-image: radial-gradient(4px 8px at 4px calc(100% - 8px), rgba(255, 255, 255, .25), transparent), radial-gradient(4px 8px at calc(100% - 4px) calc(100% - 8px), rgba(255, 255, 255, .25), transparent);
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5), inset 0 -1px 3px 3px rgba(0, 0, 0, .4);
+  transition-property: border-radius, padding-top;
+  transition-duration: .2s;
+}
+
+.button-3d:active .button-3d-bottom {
+  border-radius: 10px 10px 8px 8px / 8px;
+  padding-top: 0;
+}
+
+.button-3d-base {
+  position: absolute;
+  z-index: -2;
+  top: 4px;
+  left: 0;
+  border-radius: 10px;
+  width: 100%;
+  height: calc(100% - 4px);
+  background-color: rgba(0, 0, 0, .15);
+  box-shadow: 0 1px 1px 0 rgba(255, 255, 255, .75), inset 0 2px 2px rgba(0, 0, 0, .25);
+}
+
+/* ==========================================================
+   TOGGLE BUTTON CSS STYLING
+   ================================================---------- */
+.switch {
+  font-size: 14px;
+  position: relative;
+  display: inline-block;
+  width: 3.2em;
+  height: 1.8em;
+  cursor: pointer;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #d4acfb;
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.3em;
+  width: 1.3em;
+  left: 0.25em;
+  bottom: 0.25em;
+  background-color: white;
+  border-radius: 50px;
+  box-shadow: 0 0px 15px rgba(0,0,0,0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.switch input:checked + .slider {
+  background: #b84fce;
+}
+
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px #b84fce;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.4em);
+  width: 1.5em;
+  height: 1.5em;
+  bottom: 0.15em;
+}
+
+/* ==========================================================
+   INGESTION GRID / MODERN CARD LAYOUT
+   (this whole block was previously stranded in an App.css file
+   that nothing imported — it never reached the browser. It now
+   lives here, in the one stylesheet main.jsx actually loads.)
+   ================================================---------- */
+.ingestion-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(320px, 1fr));
+  gap: 24px;
+  padding: 20px;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.modern-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px;
+  min-height: 720px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 30px 60px rgba(99,102,241,0.12), 0 12px 25px rgba(0,0,0,0.06);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.purple {
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+}
+
+.blue {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.green {
+  background: linear-gradient(135deg, #22c55e, #10b981);
+}
+
+.card-badge {
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.badge-purple {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.badge-blue {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.badge-green {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.card-title {
+  font-size: 30px;
+  font-weight: 800;
+  margin-top: 18px;
+  color: #0f172a;
+}
+
+.card-subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+  max-width: 300px;
+}
+
+.feature-box {
+  margin-top: 20px;
+  min-height: 240px;
+  border: 2px dashed #c4b5fd;
+  background: #faf7ff;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.feature-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #334155;
+  font-size: 13px;
+}
+
+.feature-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Supported-databases chip grid on the Database card */
+.db-chip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.db-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 8px;
+  font-weight: 700;
+  font-size: 12.5px;
+  color: #334155;
+  background: #f8fafc;
+  text-align: center;
+}
+
+.db-chip.more {
+  color: #64748b;
+  font-weight: 700;
+  background: #f1f5f9;
+}
+
+.db-chip-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* Ready-to-connect status banner */
+.status-banner-ready {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+.status-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.status-sub {
+  font-size: 11.5px;
+  color: #64748b;
+  margin-top: 1px;
+}
+
+.endpoint-row {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.big-button {
+  margin-top: auto;
+  width: 100%;
+  height: 54px;
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-purple {
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+}
+
+.btn-blue {
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+}
+
+.btn-green {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.big-button:hover {
+  opacity: 0.95;
+}
+
+.big-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1320px) {
+  .ingestion-grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+}
+
+.modern-input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  background: #f8fafc;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+}
+
+.modern-input:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+}
+
+.upload-icon-wrapper {
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(
+      135deg,
+      rgba(139,92,246,.12),
+      rgba(109,40,217,.08)
+  );
+}
+
+.endpoint-badge {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
