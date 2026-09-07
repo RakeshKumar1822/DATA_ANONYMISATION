@@ -1,7 +1,7 @@
 ﻿import React, { useState } from 'react';
-import { 
-  Table, TableBody, TableCell, TableContainer, 
-  TableHead, TableRow, Paper, Menu, MenuItem, 
+import {
+  Table, TableBody, TableCell, TableContainer,
+  TableHead, TableRow, Paper, Menu, MenuItem,
   Select, FormControl, InputLabel, FormControlLabel, Checkbox, Button, Box, TextField, Typography, TablePagination
 } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
@@ -9,7 +9,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import SearchIcon from '@mui/icons-material/Search';
 
 const ALGOS = [
-  "None", "First Name", "Last Name", "Full Name", 
+  "None", "First Name", "Last Name", "Full Name",
   "Numbers", "Email", "Phone Number", "Alphanumeric", "Date Type", "Bucket-Based"
 ];
 
@@ -20,16 +20,17 @@ const DATE_FORMATS = [
   "%d-%m-%y", "%m-%d-%y", "%d.%m.%Y", "%m.%d.%Y"
 ];
 
-export default function DataPreviewTable({ 
-  columns = [], 
-  data = [], 
-  rules = {}, 
+export default function DataPreviewTable({
+  columns = [],
+  data = [],
+  rules = {},
   totalRows = 0,
   page = 1,
-  rowsPerPage = 100, 
+  rowsPerPage = 100,
   onRowsPerPageChange,
   onPageChange,
-  onSaveRule 
+  onSaveRule,
+  isExecuted = false
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [activeCol, setActiveCol] = useState(null);
@@ -59,7 +60,7 @@ export default function DataPreviewTable({
   const filteredAlgos = ALGOS.filter(a => a.toLowerCase().includes(algoSearchQuery.toLowerCase()));
 
   const effectiveLimit = rowsPerPage === 'half' ? Math.ceil(totalRows / 2) : Number(rowsPerPage);
-  const paginatedData = rowsPerPage >= 500 
+  const paginatedData = rowsPerPage >= 500
     ? data.slice((page - 1) * effectiveLimit, page * effectiveLimit)
     : data.slice(0, effectiveLimit);
 
@@ -74,17 +75,28 @@ export default function DataPreviewTable({
                 const rule = rules[col] || { algo: 'None' };
                 const isConfigured = rule.algo && rule.algo !== 'None';
                 return (
-                  <TableCell 
-                    key={col} 
-                    className="bg-slate-100 font-bold text-slate-800 cursor-pointer hover:bg-slate-200 transition-colors px-1.5 py-0.5 text-[7.5px]"
-                    style={{ whiteSpace: 'nowrap' }}
+                  <TableCell
+                    key={col}
+                    className="bg-slate-100 font-extrabold text-slate-900 cursor-pointer hover:bg-slate-200 transition-colors px-2 py-1 text-[11px]"
+                    style={{ whiteSpace: 'nowrap', fontWeight: 800 }}
                     onClick={(e) => handleHeaderClick(e, col)}
                   >
                     <div className="flex items-center justify-between space-x-1">
                       <span className="truncate">{col}</span>
-                      <div className="flex items-center space-x-0.2">
-                        {isConfigured && <LockIcon style={{ fontSize: 8 }} className="text-indigo-600" titleAccess={rule.algo} />}
-                        <ArrowDropDownIcon style={{ fontSize: 11 }} className="text-slate-600" />
+                      <div className="flex items-center space-x-0.5">
+                        {isConfigured && (
+                          isExecuted ? (
+                            <img
+                              src="/shield-icon.svg"
+                              alt="Shield"
+                              style={{ width: 14, height: 14 }}
+                              title={`Executed: ${rule.algo}`}
+                            />
+                          ) : (
+                            <LockIcon style={{ fontSize: 13 }} className="text-indigo-600" titleAccess={`Configured: ${rule.algo}`} />
+                          )
+                        )}
+                        <ArrowDropDownIcon style={{ fontSize: 13 }} className="text-slate-600" />
                       </div>
                     </div>
                   </TableCell>
@@ -96,9 +108,9 @@ export default function DataPreviewTable({
             {paginatedData.map((row, rIdx) => (
               <TableRow key={rIdx} hover className="even:bg-slate-50/60" style={{ height: '18px' }}>
                 {columns.map((col) => (
-                  <TableCell 
-                    key={col} 
-                    className="text-[7px] font-mono text-slate-700 px-1.5 py-0.2" 
+                  <TableCell
+                    key={col}
+                    className="text-[7px] font-mono text-slate-700 px-1.5 py-0.2"
                     style={{ whiteSpace: 'nowrap' }}
                   >
                     {row[col] !== null && row[col] !== undefined ? String(row[col]) : <span className="text-slate-300 italic">null</span>}

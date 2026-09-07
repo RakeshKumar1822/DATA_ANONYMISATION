@@ -47,6 +47,36 @@ export const fetchFromS3 = async (s3Config) => {
   return response.data;
 };
 
+export const fetchS3Buckets = async (credentials) => {
+  const response = await axios.post(`${API_BASE_URL}/ingest/s3/buckets`, {
+    region_name: credentials.region || "us-east-1",
+    aws_access_key_id: credentials.accessKeyId || credentials.aws_access_key_id || null,
+    aws_secret_access_key: credentials.secretAccessKey || credentials.aws_secret_access_key || null
+  });
+  return response.data;
+};
+
+export const fetchS3Folders = async (bucketName, credentials) => {
+  const response = await axios.post(`${API_BASE_URL}/ingest/s3/folders`, {
+    bucket: bucketName,
+    region_name: credentials.region || "us-east-1",
+    aws_access_key_id: credentials.accessKeyId || credentials.aws_access_key_id || null,
+    aws_secret_access_key: credentials.secretAccessKey || credentials.aws_secret_access_key || null
+  });
+  return response.data;
+};
+
+export const fetchS3Objects = async (bucketName, prefix = "", credentials) => {
+  const response = await axios.post(`${API_BASE_URL}/ingest/s3/objects`, {
+    bucket: bucketName,
+    prefix: prefix,
+    region_name: credentials.region || "us-east-1",
+    aws_access_key_id: credentials.accessKeyId || null,
+    aws_secret_access_key: credentials.secretAccessKey || null
+  });
+  return response.data;
+};
+
 export const exportToS3 = async (exportConfig) => {
   const response = await axios.post(`${API_BASE_URL}/export/s3`, {
     dataset_name: exportConfig.datasetName,
@@ -72,8 +102,27 @@ export const fetchMySQLTables = async (config) => {
   return response.data;
 };
 
-export const importMySQLTable = async (config) => {
-  const response = await axios.post(`${API_BASE_URL}/connect/mysql/import`, config);
+export const importMySQLTable = async (config, targetName) => {
+  const response = await axios.post(`${API_BASE_URL}/connect/mysql/import`, {
+    ...config,
+    driver: "mysql",
+    custom_dataset_name: targetName
+  });
+  return response.data;
+};
+
+export const exportToMySQL = async (exportConfig) => {
+  const response = await axios.post(`${API_BASE_URL}/export/mysql`, {
+    host: exportConfig.host || "localhost",
+    port: exportConfig.port || 3306,
+    user: exportConfig.user,
+    password: exportConfig.password,
+    database: exportConfig.database || "test_db",
+    tableName: exportConfig.tableName,
+    dataset_name: exportConfig.datasetName,
+    rules: exportConfig.rules || {},
+    dataframe_dicts: exportConfig.dataframeDicts
+  });
   return response.data;
 };
 
@@ -111,6 +160,56 @@ export const exportToSnowflake = async (exportConfig) => {
     action: "extract_test_db",
     force_external_schema: exportConfig.forceExternalSchema || false,
     dataframe_dicts: exportConfig.dataframeDicts
+  });
+  return response.data;
+};
+
+export const connectPostgresDatabases = async (config) => {
+  const response = await axios.post(`${API_BASE_URL}/connect/postgres/databases`, {
+    ...config,
+    driver: "postgresql"
+  });
+  return response.data;
+};
+
+export const fetchPostgresSchemas = async (config) => {
+  const response = await axios.post(`${API_BASE_URL}/connect/postgres/schemas`, {
+    ...config,
+    driver: "postgresql"
+  });
+  return response.data;
+};
+
+export const fetchPostgresTables = async (config) => {
+  const response = await axios.post(`${API_BASE_URL}/connect/postgres/tables`, {
+    ...config,
+    driver: "postgresql"
+  });
+  return response.data;
+};
+
+export const importPostgresTable = async (config, targetName) => {
+  const response = await axios.post(`${API_BASE_URL}/connect/postgres/import`, {
+    ...config,
+    driver: "postgresql",
+    custom_dataset_name: targetName
+  });
+  return response.data;
+};
+
+export const exportToPostgres = async (exportConfig) => {
+  const response = await axios.post(`${API_BASE_URL}/export/postgres`, {
+    host: exportConfig.host || "localhost",
+    port: exportConfig.port || 5432,
+    user: exportConfig.user,
+    password: exportConfig.password,
+    database: exportConfig.database || "test_db",
+    schema: exportConfig.schema || "public",
+    tableName: exportConfig.tableName,
+    dataset_name: exportConfig.datasetName,
+    rules: exportConfig.rules || {},
+    dataframe_dicts: exportConfig.dataframeDicts,
+    force_external_schema: exportConfig.forceExternalSchema || false
   });
   return response.data;
 };
